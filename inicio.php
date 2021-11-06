@@ -9,20 +9,20 @@
 </head>
 <body>
     <h1>BIENVENIDO PAGINA PRINCIPAL</h1>
-    <?php
-        include('conexion.php');
-        $sql = "SELECT Nombres,Apellidos FROM usuario;
-        $conn=conectardb();
-        $result = mysqli_query($conn,$sql);
-        if($result){
-            while($row = $result->fetch_array()){
-                $nombre=$row['Nombres'];
-                $apellido=$row['Apellidos'];
-            }
-        }
-    ?>
     <div>
-        <?php echo $nombre.$apellido; ?>
+        <?php
+            session_start();
+            $usuario = $_SESSION['nombre'];
+            $apellido = $_SESSION['apellido'];
+            if(!isset($usuario)){
+                header("location:login.html");
+            }else{
+                echo "Bienvenido $usuario.$apellido";
+                ?>
+                <hr><a href="salir.php" style="text-decoration:none">SALIR</a>
+                <?php
+            }
+        ?>
     </div>
 </body>
 </html>
